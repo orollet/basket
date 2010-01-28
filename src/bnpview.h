@@ -198,7 +198,7 @@ public slots:
     void delayedOpenArchive();
     void lockBasket();
     void hideOnEscape();
-
+    void toTemplate();
     void changedSelectedNotes();
     void timeoutTryHide();
     void timeoutHide();
@@ -232,6 +232,7 @@ public:
     KAction       *m_actExportToHtml;
     KAction       *m_actPropBasket;
     KAction       *m_actDelBasket;
+    KAction       *m_actToTemplate;
     KToggleAction *m_actFilterAllBaskets;
 
 private:

@@ -33,6 +33,8 @@
    </Menu>
    <Action name="basket_backup_restore" />
    <Separator/>
+   <Action name="basket_to_template" />
+   <Separator/>
    <Action name="window_hide" />
    <Action name="file_quit" />
   </Menu>
@@ -186,6 +188,8 @@
    <Action name="basket_import_text_file" />
   </Menu>
   <Action name="basket_backup_restore" />
+  <Separator/>
+  <Action name="basket_to_template" />
  </Menu>
  <Menu name="tab_bar_popup" >
   <Action name="basket_new" />

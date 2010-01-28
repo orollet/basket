@@ -551,6 +551,9 @@ void BNPView::setupActions()
     a->setText(i18n("&Backup && Restore..."));
     a->setShortcut(0);
 
+    a = ac->addAction("basket_to_template", this, SLOT(toTemplate()));
+    a->setText(i18nc("to Template...", "to &Template..."));
+
     /** Note : ****************************************************************/
 
     a = ac->addAction("edit_delete", this, SLOT(delNote()));
@@ -800,6 +803,12 @@ void BNPView::setupActions()
     a->setShortcut(0);
     m_actDelBasket = a;
 
+    a = ac->addAction("basket_to_template", this, SLOT(toTemplate()));
+    a->setText(i18nc("to template", "to &Template"));
+    a->setShortcut(0);
+    m_actToTemplate = a;
+
+
 #ifdef HAVE_LIBGPGME
     a = ac->addAction("basket_password", this, SLOT(password()));
     a->setText(i18nc("Password protection", "Pass&word..."));
@@ -922,6 +931,12 @@ void BNPView::slotContextMenu(const QPoint &pos)
     KMenu *menu = popupMenu(menuName);
     connect(menu, SIGNAL(aboutToHide()),  this, SLOT(aboutToHideNewBasketPopup()));
     menu->exec(m_tree->mapToGlobal(pos));
+}
+
+void BNPView::toTemplate()
+{
+    kDebug()<< "totemplate";
+
 }
 
 void BNPView::save()
