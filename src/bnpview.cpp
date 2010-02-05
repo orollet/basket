@@ -89,6 +89,7 @@
 #include "notecontent.h"
 #include "unistd.h" // usleep
 
+#include "templatefactory.h"
 
 #include "bnpviewadaptor.h"
 /** class BNPView: */
@@ -553,6 +554,7 @@ void BNPView::setupActions()
 
     a = ac->addAction("basket_to_template", this, SLOT(toTemplate()));
     a->setText(i18nc("to Template...", "to &Template..."));
+    a->setShortcut(0);
 
     /** Note : ****************************************************************/
 
@@ -935,7 +937,11 @@ void BNPView::slotContextMenu(const QPoint &pos)
 
 void BNPView::toTemplate()
 {
-    kDebug()<< "totemplate";
+    kDebug()<< "\ntoTemplate atteint"  << "\n Folmder = " << Global::templatesFolder() ;
+    TemplateFactory::packTemplate("test2");
+
+
+
 
 }
 

@@ -18,9 +18,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <QDir>
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QPixmap>
+#include <QStringList>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <KDE/KLocale>
@@ -32,6 +34,7 @@
 #include <KApplication>
 #include <KDE/KIconLoader>
 #include <KDE/KMainWindow>
+#include <KDE/KDebug>
 
 #include <QComboBox>
 
@@ -126,7 +129,11 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
     QHBoxLayout *layout = new QHBoxLayout;
     KPushButton *button = new KPushButton(KGuiItem(i18n("&Manage Templates..."), "configure"), page);
     connect(button, SIGNAL(clicked()), this, SLOT(manageTemplates()));
-    button->hide();
+   // i'LL NEED TO WORK ON THIS
+    //  button->hide();
+
+
+
 
     // Compute the right template to use as the default:
     QString defaultTemplate = "free";
@@ -198,6 +205,37 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
         m_templates->setCurrentItem(lastTemplate);
 
     m_templates->setMinimumHeight(topLayout->minimumSize().width() * 9 / 16);
+
+    // here we go
+    QString templatePath   = Global::templatesFolder();
+
+    QDir mtemplateDir(templatePath);
+    QStringList filters;
+
+    filters << "*.xml";
+    mtemplateDir.setNameFilters(filters);
+
+
+    QStringList tempList = mtemplateDir.entryList();
+
+    for(int i=0; i< tempList.size() ; i++){
+        kDebug()<< "template " << tempList.at(i) << "\n";
+        painter.begin(&icon);
+        painter.fillRect(0, 0, icon.width(), icon.height(), palette().color(QPalette::Base));
+        painter.setPen(palette().color(QPalette::Text));
+        painter.drawRect(0, 0, icon.width(), icon.height());
+        painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
+        painter.drawRect(icon.width() * 2 / 5, icon.width() * 2 / 5, icon.width() / 4, icon.height() / 8);
+        painter.end();
+        lastTemplate = new QListWidgetItem(icon,  tempList.at(i), m_templates);
+        if (defaultTemplate == tempList.at(i))
+            m_templates->setCurrentItem(lastTemplate);
+
+
+    }
+
+
+
 
     QLabel *label = new QLabel(page);
     label->setText(i18n("&Template:"));

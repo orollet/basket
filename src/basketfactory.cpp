@@ -21,6 +21,7 @@
 #include <QDir>
 #include <QTextStream>
 #include <KDE/KLocale>
+#include <KDE/KDebug>
 #include <KDE/KMessageBox>
 #include <QDomElement>
 
@@ -62,6 +63,15 @@ QString BasketFactory::unpackTemplate(const QString &templateName)
         KMessageBox::error(/*parent=*/0, i18n("Sorry, but the folder creation for this new basket has failed."), i18n("Basket Creation Failed"));
         return "";
     }
+
+    QString templatePath = Global::templatesFolder();
+    //QDir templateDir(templatePath);
+    QFile templateFile( templatePath+ templateName);
+    if(templateFile.open(QIODevice::WriteOnly)){
+        kDebug()<<"template xml file found " << templateName << "\n" ;
+
+    }
+
 
     // Unpack the template file to that folder:
     // TODO: REALLY unpack (this hand-creation is temporary, or it could be used in case the template can't be found)
