@@ -43,10 +43,11 @@ QString TemplateFactory::packTemplate(const QString &templateName)
 
         int columnWidth = (currentBasket && nbColumns > 0 ? (currentBasket->visibleWidth() - (nbColumns - 1) * Note::RESIZER_WIDTH) / nbColumns : 0);
         stream << QString("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
-                          "<!DOCTYPE basket-template>\n"
-                          "<basket-template>\n"
+                          "<!DOCTYPE basket>\n"
+                          "<basket>\n"
                           " <properties>\n"
-                          " <appearance backgroundColor=\"%4\" backgroundImage=\"%5\" textColor=\"6\"/>\n "
+                          "<icon>%7</icon>\n"
+                          " <appearance backgroundColor=\"%4\" backgroundImage=\"%5\" textColor=\"%6\"/>\n "
                           "  <disposition mindMap=\"%1\" columnCount=\"%2\" free=\"%3\" />\n"
                           " </properties>\n"
                           " <notes>\n").arg((templateName == "mindmap" ? "true" : "false"),
@@ -54,12 +55,13 @@ QString TemplateFactory::packTemplate(const QString &templateName)
                                             (currentBasket->isFreeLayout() ? "true":"false"),
                                             currentBasket->backgroundColor().name(),
                                             currentBasket->backgroundImageName(),
-                                            currentBasket->textColor().name());
+                                            currentBasket->textColor().name(),
+                                            currentBasket->icon()   );
         if (nbColumns > 0)
             for (int i = 0; i < nbColumns; ++i)
                 stream << QString("  <group width=\"%1\"></group>\n").arg(columnWidth);
         stream << " </notes>\n"
-        "</basket-template>\n";
+        "</basket>\n";
         file.close();
         return fileName;
     } else {

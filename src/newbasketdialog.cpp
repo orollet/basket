@@ -38,6 +38,8 @@
 
 #include <QComboBox>
 
+#include <QDomDocument>
+
 #include "kicondialog.h"
 #include "newbasketdialog.h"
 #include "basketfactory.h"
@@ -48,6 +50,9 @@
 #include "tools.h"
 #include "global.h"
 #include "bnpview.h"
+
+
+#include "xmlwork.h"
 
 /** class SingleSelectionKIconView: */
 
@@ -272,8 +277,12 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
         index = populateBasketsList(Global::bnpView->topLevelItem(i), /*indent=*/1, /*index=*/index);
     }
 
+    // LACK OF AN ITEMCLICKED SIGNAL FOR using value of
+
     connect(m_templates, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(slotOk()));
     connect(m_templates, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(returnPressed()));
+
+    connect(m_templates, SIGNAL(itemClicked(QListWidgetItem*)  ), this, SLOT(templateClicked()) );
 
     setMainWidget(page);
 
@@ -301,6 +310,86 @@ void NewBasketDialog::returnPressed()
 {
     button(Ok)->animateClick();
 }
+
+void NewBasketDialog::templateClicked()
+{
+
+    // clicking on a template should change the default option in the dialog
+   //    and the default properties which are "hidden" right now
+
+
+    QListWidgetItem *item = ((SingleSelectionKIconView*)m_templates)->selectedItem();
+    QString templateName;
+    kDebug()<<"template clicked : " << item->text() << "\n" ;
+
+    // reading template option and affecting value to dialog co,trols
+
+
+    // Read the properties, change those that should be customized and save the result:
+    QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+item->text());
+    if (!document) {
+        KMessageBox::error(/*parent=*/0, i18n("Sorry, but the template cannot be open."), i18n("Template Opening Failed"));
+        return;
+    }
+
+    QDomElement properties  = XMLWork::getElement(document->documentElement(), "properties");
+
+    QDomElement iconElement = XMLWork::getElement(properties, "icon");
+    if (!iconElement.tagName().isEmpty()) {
+     m_icon->setIcon(    iconElement.text());
+    }
+
+    QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
+    if(! appearanceElement.attribute("backgroundColor").isEmpty()){
+        m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
+    }
+
+
+    m_defaultProperties.columnCount = 3;
+
+/*
+    if (!name.isEmpty()) {
+        QDomElement nameElement = XMLWork::getElement(properties, "name");
+        if (!nameElement.tagName().isEmpty()) // If there is already a name, remove it since we will add our own value below
+            nameElement.removeChild(nameElement.firstChild());
+        XMLWork::addElement(*document, properties, "name", name);
+    }
+
+    if (backgroundColor.isValid()) {
+        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
+        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
+            appearanceElement = document->createElement("appearance");
+            properties.appendChild(appearanceElement);
+        }
+        appearanceElement.setAttribute("backgroundColor", backgroundColor.name());
+    }
+
+    if (!backgroundImage.isEmpty()) {
+        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
+        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
+            appearanceElement = document->createElement("appearance");
+            properties.appendChild(appearanceElement);
+        }
+        appearanceElement.setAttribute("backgroundImage", backgroundImage);
+    }
+
+    if (textColor.isValid()) {
+        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
+        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
+            appearanceElement = document->createElement("appearance");
+            properties.appendChild(appearanceElement);
+        }
+        appearanceElement.setAttribute("textColor", textColor.name());
+    }
+
+
+*/
+
+
+
+}
+
+
 
 int NewBasketDialog::populateBasketsList(QTreeWidgetItem *item, int indent, int index)
 {
@@ -356,6 +445,10 @@ void NewBasketDialog::slotOk()
         templateName = "free";
     if (item->text() == i18n("Mind map"))
         templateName = "mindmap";
+
+    // if templateName is stille empty, that's an xml template - we use the file name
+    if (templateName.isEmpty())
+        templateName = item->text();
 
     Global::bnpView->closeAllEditors();
 

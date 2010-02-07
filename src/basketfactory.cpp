@@ -65,17 +65,28 @@ QString BasketFactory::unpackTemplate(const QString &templateName)
     }
 
     QString templatePath = Global::templatesFolder();
-    //QDir templateDir(templatePath);
-    QFile templateFile( templatePath+ templateName);
-    if(templateFile.open(QIODevice::WriteOnly)){
-        kDebug()<<"template xml file found " << templateName << "\n" ;
 
+kDebug() << "unpacking " << templatePath << templateName << "\n" ;
+        //QDir templateDir(templatePath);
+    QFile templateFile( templatePath+ templateName);
+    if(templateFile.open(QIODevice::ReadOnly)){
+        kDebug()<<"template xml file found " << templateName << "\n" ;
+        templateFile.copy(fullPath + "/.basket");
+         kDebug()<<"template xml  copied!" ;
+        templateFile.copy(fullPath + "tmplorig.xml\n");
+         kDebug()<<"saved template xml\n " ;
+        return folderName;
+    }else {
+        kDebug() << "unpacking " << templatePath << templateName << " failed! \n";
     }
+
+
 
 
     // Unpack the template file to that folder:
     // TODO: REALLY unpack (this hand-creation is temporary, or it could be used in case the template can't be found)
     QFile file(fullPath + "/.basket");
+    kDebug()<< "path : "<< fullPath;
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream stream(&file);
         stream.setCodec("UTF-8");

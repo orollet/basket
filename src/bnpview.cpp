@@ -89,7 +89,9 @@
 #include "notecontent.h"
 #include "unistd.h" // usleep
 
+#include "totemplatedialog.h"
 #include "templatefactory.h"
+
 
 #include "bnpviewadaptor.h"
 /** class BNPView: */
@@ -937,8 +939,18 @@ void BNPView::slotContextMenu(const QPoint &pos)
 
 void BNPView::toTemplate()
 {
+
+
     kDebug()<< "\ntoTemplate atteint"  << "\n Folmder = " << Global::templatesFolder() ;
-    TemplateFactory::packTemplate("test2");
+    //TemplateFactory::packTemplate("test2");
+    //QTreeWidgetItem *item;
+    //item = m_tree->itemAt(pos);
+
+    ///BasketView* basket = ((BasketListViewItem*)item)->basket();
+
+
+    kDebug() <<currentBasket()->basketName();
+    ToTemplateDialog::ToTemplateDialog( currentBasket(), currentBasket()->basketName() ).exec()   ;
 
 
 

@@ -45,6 +45,7 @@ set(basketcommon_LIB_SRCS
     tag.cpp
     tagsedit.cpp
     templatefactory.cpp
+    totemplatedialog.cpp
     transparentwidget.cpp
     tools.cpp
     variouswidgets.cpp

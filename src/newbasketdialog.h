@@ -87,6 +87,7 @@ protected slots:
     void returnPressed();
     void manageTemplates();
     void nameChanged(const QString &newName);
+    void templateClicked();
 private:
     int populateBasketsList(QTreeWidgetItem *item, int indent, int index);
     NewBasketDefaultProperties  m_defaultProperties;
