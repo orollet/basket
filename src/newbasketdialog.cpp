@@ -376,49 +376,6 @@ void NewBasketDialog::templateClicked()
         m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
     }
 
-
-//    m_defaultProperties.columnCount = 3;
-
-/*
-    if (!name.isEmpty()) {
-        QDomElement nameElement = XMLWork::getElement(properties, "name");
-        if (!nameElement.tagName().isEmpty()) // If there is already a name, remove it since we will add our own value below
-            nameElement.removeChild(nameElement.firstChild());
-        XMLWork::addElement(*document, properties, "name", name);
-    }
-
-    if (backgroundColor.isValid()) {
-        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
-        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
-            appearanceElement = document->createElement("appearance");
-            properties.appendChild(appearanceElement);
-        }
-        appearanceElement.setAttribute("backgroundColor", backgroundColor.name());
-    }
-
-    if (!backgroundImage.isEmpty()) {
-        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
-        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
-            appearanceElement = document->createElement("appearance");
-            properties.appendChild(appearanceElement);
-        }
-        appearanceElement.setAttribute("backgroundImage", backgroundImage);
-    }
-
-    if (textColor.isValid()) {
-        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
-        if (appearanceElement.tagName().isEmpty()) { // If there is not already an appearance tag, add it since we will access it below
-            appearanceElement = document->createElement("appearance");
-            properties.appendChild(appearanceElement);
-        }
-        appearanceElement.setAttribute("textColor", textColor.name());
-    }
-
-
-*/
-
-
-
 }
 
 
