@@ -223,10 +223,32 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
 
     QStringList tempList = mtemplateDir.entryList();
 
+
+
     for(int i=0; i< tempList.size() ; i++){
         kDebug()<< "template " << tempList.at(i) << "\n";
+        QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+tempList.at(i));
+
+        QDomElement properties  = XMLWork::getElement(document->documentElement(), "properties");
+
+
+        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
+        if(! appearanceElement.attribute("backgroundColor").isEmpty()){
+            m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
+        }
+
+
+
+
         painter.begin(&icon);
-        painter.fillRect(0, 0, icon.width(), icon.height(), palette().color(QPalette::Base));
+        //painter.fillRect(0, 0, icon.width(), icon.height(), palette().color(QPalette::Base));
+
+        if(! appearanceElement.attribute("backgroundColor").isEmpty()){
+  //          m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
+            painter.fillRect(0, 0, icon.width(), icon.height(), QColor(appearanceElement.attribute("backgroundColor")));
+
+        }
+
         painter.setPen(palette().color(QPalette::Text));
         painter.drawRect(0, 0, icon.width(), icon.height());
         painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
@@ -314,13 +336,10 @@ void NewBasketDialog::returnPressed()
 void NewBasketDialog::templateClicked()
 {
 
-    // clicking on a template should change the default option in the dialog
-   //    and the default properties which are "hidden" right now
-
+    // clicking on a template should change the control appeaance in the dialog
 
     QListWidgetItem *item = ((SingleSelectionKIconView*)m_templates)->selectedItem();
     QString templateName;
-    kDebug()<<"template clicked : " << item->text() << "\n" ;
 
     // reading template option and affecting value to dialog co,trols
 
@@ -328,7 +347,10 @@ void NewBasketDialog::templateClicked()
     // Read the properties, change those that should be customized and save the result:
     QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+item->text());
     if (!document) {
-        KMessageBox::error(/*parent=*/0, i18n("Sorry, but the template cannot be open."), i18n("Template Opening Failed"));
+     // Standard templates -  The controls are reset to default properties
+     //   KMessageBox::error(/*parent=*/0, i18n("Sorry, but the template cannot be open."), i18n("Template Opening Failed"));
+       m_backgroundColor->setColor(  palette().color(QPalette::Base));  
+       m_icon->setIcon(m_defaultProperties.icon.isEmpty() ? "basket" : m_defaultProperties.icon);
         return;
     }
 
@@ -345,7 +367,7 @@ void NewBasketDialog::templateClicked()
     }
 
 
-    m_defaultProperties.columnCount = 3;
+//    m_defaultProperties.columnCount = 3;
 
 /*
     if (!name.isEmpty()) {
