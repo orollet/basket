@@ -226,33 +226,43 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
 
 
     for(int i=0; i< tempList.size() ; i++){
-        kDebug()<< "template " << tempList.at(i) << "\n";
+
         QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+tempList.at(i));
-
         QDomElement properties  = XMLWork::getElement(document->documentElement(), "properties");
-
-
         QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
         if(! appearanceElement.attribute("backgroundColor").isEmpty()){
             m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
         }
 
-
-
+        int nbcol = 0;
+        QDomElement dispositionElement = XMLWork::getElement(properties, "disposition");
+        if(! dispositionElement.attribute("columnCount").isEmpty()){
+            nbcol =   dispositionElement.attribute("columnCount").toInt();
+        }
 
         painter.begin(&icon);
-        //painter.fillRect(0, 0, icon.width(), icon.height(), palette().color(QPalette::Base));
-
         if(! appearanceElement.attribute("backgroundColor").isEmpty()){
-  //          m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
-            painter.fillRect(0, 0, icon.width(), icon.height(), QColor(appearanceElement.attribute("backgroundColor")));
-
+              painter.fillRect(0, 0, icon.width(), icon.height(), QColor(appearanceElement.attribute("backgroundColor")));
+        }
+        if(! appearanceElement.attribute("backgroundImage").isEmpty()){
+            QPixmap pixie( Global::backgroundsFolder()+"/previews/"+appearanceElement.attribute("backgroundImage") , "png");
+            painter.drawPixmap(0,0, icon.width(), icon.height(), pixie );
         }
 
         painter.setPen(palette().color(QPalette::Text));
         painter.drawRect(0, 0, icon.width(), icon.height());
-        painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
-        painter.drawRect(icon.width() * 2 / 5, icon.width() * 2 / 5, icon.width() / 4, icon.height() / 8);
+
+        if( nbcol>1 ) {
+            for (int j=1 ; j<nbcol; j++ ){
+                painter.drawLine(icon.width() * j / nbcol, 0, icon.width() * j / nbcol, icon.height());
+            }
+
+        }else {
+            painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
+            painter.drawRect(icon.width() * 2 / 5, icon.width() * 2 / 5, icon.width() / 4, icon.height() / 8);
+        }
+
+
         painter.end();
         lastTemplate = new QListWidgetItem(icon,  tempList.at(i), m_templates);
         if (defaultTemplate == tempList.at(i))
