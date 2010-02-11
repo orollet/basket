@@ -38,8 +38,6 @@
 
 #include <QComboBox>
 
-#include <QDomDocument>
-
 #include "kicondialog.h"
 #include "newbasketdialog.h"
 #include "basketfactory.h"
@@ -51,8 +49,8 @@
 #include "global.h"
 #include "bnpview.h"
 
+#include "template.h"
 
-#include "xmlwork.h"
 
 /** class SingleSelectionKIconView: */
 
@@ -223,54 +221,41 @@ NewBasketDialog::NewBasketDialog(BasketView *parentBasket, const NewBasketDefaul
 
     QStringList tempList = mtemplateDir.entryList();
 
-
+    Template *tmplate;
 
     for(int i=0; i< tempList.size() ; i++){
+       tmplate = new Template(tempList.at(i))    ;
+       m_templatesMap.insert(tempList.at(i), tmplate );
 
-        QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+tempList.at(i));
-        QDomElement properties  = XMLWork::getElement(document->documentElement(), "properties");
-        QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
-        if(! appearanceElement.attribute("backgroundColor").isEmpty()){
-            m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
-        }
+       painter.begin(&icon);
 
-        int nbcol = 0;
-        QDomElement dispositionElement = XMLWork::getElement(properties, "disposition");
-        if(! dispositionElement.attribute("columnCount").isEmpty()){
-            nbcol =   dispositionElement.attribute("columnCount").toInt();
-        }
+       painter.setPen(palette().color(QPalette::Text));
+       painter.drawRect(0, 0, icon.width(), icon.height());
 
-        painter.begin(&icon);
-        if(! appearanceElement.attribute("backgroundColor").isEmpty()){
-              painter.fillRect(0, 0, icon.width(), icon.height(), QColor(appearanceElement.attribute("backgroundColor")));
-        }
-        if(! appearanceElement.attribute("backgroundImage").isEmpty()){
-            QPixmap pixie( Global::backgroundsFolder()+"/previews/"+appearanceElement.attribute("backgroundImage") , "png");
-            painter.drawPixmap(0,0, icon.width(), icon.height(), pixie );
-        }
+       painter.fillRect(0, 0, icon.width(), icon.height(),tmplate->backgroundColor()  );
+       QPixmap pixie( Global::backgroundsFolder()+"/previews/"+ tmplate->backgroundImage() );
+       painter.drawPixmap(0,0, icon.width(), icon.height(), pixie );
 
-        painter.setPen(palette().color(QPalette::Text));
-        painter.drawRect(0, 0, icon.width(), icon.height());
-
-        if( nbcol>1 ) {
-            for (int j=1 ; j<nbcol; j++ ){
-                painter.drawLine(icon.width() * j / nbcol, 0, icon.width() * j / nbcol, icon.height());
-            }
-
-        }else {
-            painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
-            painter.drawRect(icon.width() * 2 / 5, icon.width() * 2 / 5, icon.width() / 4, icon.height() / 8);
-        }
+       painter.setPen(palette().color(QPalette::Text));
+       painter.drawRect(0, 0, icon.width(), icon.height());
 
 
-        painter.end();
-        lastTemplate = new QListWidgetItem(icon,  tempList.at(i), m_templates);
-        if (defaultTemplate == tempList.at(i))
-            m_templates->setCurrentItem(lastTemplate);
+       if( tmplate->columnsCount() >1  ) {
+           for (int j=1 ; j<tmplate->columnsCount(); j++ ){
+               painter.drawLine(icon.width() * j / tmplate->columnsCount(), 0, icon.width() * j / tmplate->columnsCount(), icon.height());
+           }
 
+       }else {
+           painter.drawRect(icon.width() / 5, icon.width() / 5, icon.width() / 4, icon.height() / 8);
+           painter.drawRect(icon.width() * 2 / 5, icon.width() * 2 / 5, icon.width() / 4, icon.height() / 8);
+       }
 
-    }
+       painter.end();
+       lastTemplate = new QListWidgetItem(icon,  tempList.at(i), m_templates);
+       if (defaultTemplate == tempList.at(i))
+           m_templates->setCurrentItem(lastTemplate);
 
+   }
 
 
 
@@ -351,31 +336,16 @@ void NewBasketDialog::templateClicked()
     QListWidgetItem *item = ((SingleSelectionKIconView*)m_templates)->selectedItem();
     QString templateName;
 
-    // reading template option and affecting value to dialog co,trols
 
-
-    // Read the properties, change those that should be customized and save the result:
-    QDomDocument *document  = XMLWork::openFile("basket", Global::templatesFolder()+item->text());
-    if (!document) {
+    if (! m_templatesMap.contains (item->text())) {
      // Standard templates -  The controls are reset to default properties
-     //   KMessageBox::error(/*parent=*/0, i18n("Sorry, but the template cannot be open."), i18n("Template Opening Failed"));
        m_backgroundColor->setColor(  palette().color(QPalette::Base));  
        m_icon->setIcon(m_defaultProperties.icon.isEmpty() ? "basket" : m_defaultProperties.icon);
         return;
     }
 
-    QDomElement properties  = XMLWork::getElement(document->documentElement(), "properties");
-
-    QDomElement iconElement = XMLWork::getElement(properties, "icon");
-    if (!iconElement.tagName().isEmpty()) {
-     m_icon->setIcon(    iconElement.text());
-    }
-
-    QDomElement appearanceElement = XMLWork::getElement(properties, "appearance");
-    if(! appearanceElement.attribute("backgroundColor").isEmpty()){
-        m_backgroundColor->setColor(QColor(appearanceElement.attribute("backgroundColor")) );
-    }
-
+    m_icon->setIcon(   m_templatesMap.value(item->text())->icon());
+    m_backgroundColor->setColor( m_templatesMap.value(item->text())->backgroundColor() );
 }
 
 

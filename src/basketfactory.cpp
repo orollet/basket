@@ -70,11 +70,11 @@ kDebug() << "unpacking " << templatePath << templateName << "\n" ;
         //QDir templateDir(templatePath);
     QFile templateFile( templatePath+ templateName);
     if(templateFile.open(QIODevice::ReadOnly)){
-        kDebug()<<"template xml file found " << templateName << "\n" ;
+     //   kDebug()<<"template xml file found " << templateName << "\n" ;
         templateFile.copy(fullPath + "/.basket");
-         kDebug()<<"template xml  copied!" ;
-        templateFile.copy(fullPath + "tmplorig.xml\n");
-         kDebug()<<"saved template xml\n " ;
+     //    kDebug()<<"template xml  copied!" ;
+     //   templateFile.copy(fullPath + "tmplorig.xml\n");
+     //    kDebug()<<"saved template xml\n " ;
         return folderName;
     }else {
         kDebug() << "unpacking " << templatePath << templateName << " failed! \n";

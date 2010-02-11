@@ -26,6 +26,8 @@
 #include <QTreeWidgetItem>
 #include <QMap>
 
+#include "template.h"
+
 class KIconButton;
 class QLineEdit;
 class QMimeData;
@@ -97,6 +99,8 @@ private:
     QListWidget                 *m_templates;
     QComboBox                  *m_createIn;
     QMap<int, BasketView*>          m_basketsMap;
+
+    QMap<QString, Template*>  m_templatesMap;
 };
 
 #endif // NEWBASKETDIALOG_H
