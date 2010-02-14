@@ -69,3 +69,23 @@ QString TemplateFactory::packTemplate(const QString &templateName)
         return "";
     }
 }
+
+
+void TemplateFactory::deleteTemplate(const QString &templateName){
+        QString fullPath   = Global::templatesFolder();
+        QFile file(fullPath+templateName);
+        if(file.exists()){
+            file.remove();
+         }
+}
+
+
+void TemplateFactory::copyTemplate(const QString &sourceTemplate, const QString &destTemplate ){
+    QString fullPath   = Global::templatesFolder();
+    QFile file(fullPath+ sourceTemplate);
+    if(file.exists()){
+        file.copy(fullPath+destTemplate);
+     }
+
+
+}

@@ -141,11 +141,11 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-K60snD72Y4,guid=bfea153d5e482813992d029e4b7195c8</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-iUjhBjMJIZ,guid=36e414e2489e1cd1af4bc0e64b77e055</value>
     <value type="QString">DESKTOP_SESSION=kde</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">DM_CONTROL=/var/run/xdmctl</value>
-    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-HLkIdR/S.gpg-agent:2064:1</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-26Np74/S.gpg-agent:6125:1</value>
     <value type="QString">GS_LIB=/home/olivier/.fonts</value>
     <value type="QString">GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/olivier/.gtkrc-2.0::/home/olivier/.kde/share/config/gtkrc-2.0</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
@@ -156,22 +156,21 @@
     <value type="QString">KDE_SESSION_UID=1000</value>
     <value type="QString">KDE_SESSION_VERSION=4</value>
     <value type="QString">LANG=fr_FR.UTF-8</value>
-    <value type="QString">LANGUAGE=</value>
     <value type="QString">LD_LIBRARY_PATH=/opt/qtcreator-1.3.1/lib/qtcreator:</value>
     <value type="QString">LOGNAME=olivier</value>
     <value type="QString">PATH=/opt/amarok-nightly/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/olivier/Documents</value>
     <value type="QString">QT_PLUGIN_PATH=/home/olivier/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString">SESSION_MANAGER=local/olivier-desktop:@/tmp/.ICE-unix/2160,unix/olivier-desktop:/tmp/.ICE-unix/2160</value>
+    <value type="QString">SESSION_MANAGER=local/olivier-desktop:@/tmp/.ICE-unix/6227,unix/olivier-desktop:/tmp/.ICE-unix/6227</value>
     <value type="QString">SHELL=/bin/bash</value>
     <value type="QString">SHLVL=0</value>
-    <value type="QString">SSH_AGENT_PID=2063</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-TWwsbN2019/agent.2019</value>
+    <value type="QString">SSH_AGENT_PID=6124</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-aYbilQ6080/agent.6080</value>
     <value type="QString">USER=olivier</value>
     <value type="QString">WINDOWPATH=7</value>
     <value type="QString">XCURSOR_THEME=oxy-white</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString">XDG_SESSION_COOKIE=12ee12dbe7e5d9840a9fb94749f41855-1265735110.647499-1839681380</value>
+    <value type="QString">XDG_SESSION_COOKIE=12ee12dbe7e5d9840a9fb94749f41855-1266147412.432621-986876706</value>
     <value type="QString">XDM_MANAGED=method=classic</value>
    </valuelist>
    <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
@@ -186,11 +185,11 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-zvhQwHjRtV,guid=8ac36b2412e32230aaf07b304b6ea99b</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-iUjhBjMJIZ,guid=36e414e2489e1cd1af4bc0e64b77e055</value>
     <value type="QString">DESKTOP_SESSION=kde</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">DM_CONTROL=/var/run/xdmctl</value>
-    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-BAxf7S/S.gpg-agent:2117:1</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-26Np74/S.gpg-agent:6125:1</value>
     <value type="QString">GS_LIB=/home/olivier/.fonts</value>
     <value type="QString">GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/olivier/.gtkrc-2.0::/home/olivier/.kde/share/config/gtkrc-2.0</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
@@ -201,22 +200,21 @@
     <value type="QString">KDE_SESSION_UID=1000</value>
     <value type="QString">KDE_SESSION_VERSION=4</value>
     <value type="QString">LANG=fr_FR.UTF-8</value>
-    <value type="QString">LANGUAGE=</value>
     <value type="QString">LD_LIBRARY_PATH=/opt/qtcreator-1.3.1/lib/qtcreator:</value>
     <value type="QString">LOGNAME=olivier</value>
     <value type="QString">PATH=/opt/amarok-nightly/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/olivier/Documents</value>
     <value type="QString">QT_PLUGIN_PATH=/home/olivier/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/</value>
-    <value type="QString">SESSION_MANAGER=local/olivier-desktop:@/tmp/.ICE-unix/2217,unix/olivier-desktop:/tmp/.ICE-unix/2217</value>
+    <value type="QString">SESSION_MANAGER=local/olivier-desktop:@/tmp/.ICE-unix/6227,unix/olivier-desktop:/tmp/.ICE-unix/6227</value>
     <value type="QString">SHELL=/bin/bash</value>
     <value type="QString">SHLVL=0</value>
-    <value type="QString">SSH_AGENT_PID=2116</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-zVqMuE2072/agent.2072</value>
+    <value type="QString">SSH_AGENT_PID=6124</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-aYbilQ6080/agent.6080</value>
     <value type="QString">USER=olivier</value>
     <value type="QString">WINDOWPATH=7</value>
     <value type="QString">XCURSOR_THEME=oxy-white</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share:/usr/share:/usr/local/share</value>
-    <value type="QString">XDG_SESSION_COOKIE=12ee12dbe7e5d9840a9fb94749f41855-1265543577.704864-14607589</value>
+    <value type="QString">XDG_SESSION_COOKIE=12ee12dbe7e5d9840a9fb94749f41855-1266147412.432621-986876706</value>
     <value type="QString">XDM_MANAGED=method=classic</value>
    </valuelist>
    <value key="abstractProcess.IgnoreReturnValue" type="bool">true</value>

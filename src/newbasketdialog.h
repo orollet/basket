@@ -26,6 +26,7 @@
 #include <QTreeWidgetItem>
 #include <QMap>
 
+#include "managetemplatedialog.h"
 #include "template.h"
 
 class KIconButton;
@@ -41,7 +42,7 @@ class KColorCombo2;
   * This class also unselect the selected item when the user right click an empty space. We don't want to, so we reselect it if that happens.
   * @author Sébastien Laoût
   */
-class SingleSelectionKIconView : public QListWidget
+/*class SingleSelectionKIconView : public QListWidget
 {
     Q_OBJECT
 public:
@@ -56,6 +57,7 @@ private:
     QListWidgetItem *m_lastSelected;
 };
 
+*/
 /** Struct to store default properties of a new basket.
   * When the dialog shows up, the @p icon is used, as well as the @p backgroundColor.
   * A template is choosen depending on @p freeLayout and @p columnLayout.
@@ -90,6 +92,8 @@ protected slots:
     void manageTemplates();
     void nameChanged(const QString &newName);
     void templateClicked();
+
+    void templateListChanged();
 private:
     int populateBasketsList(QTreeWidgetItem *item, int indent, int index);
     NewBasketDefaultProperties  m_defaultProperties;
@@ -101,6 +105,9 @@ private:
     QMap<int, BasketView*>          m_basketsMap;
 
     QMap<QString, Template*>  m_templatesMap;
+
+    ManageTemplateDialog *m_manageTemplateDlg;
+
 };
 
 #endif // NEWBASKETDIALOG_H

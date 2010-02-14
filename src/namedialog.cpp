@@ -1,4 +1,3 @@
-#include "totemplatedialog.h"
 #include <QLineEdit>
 #include <QLayout>
 #include <QLabel>
@@ -7,42 +6,46 @@
 #include <KDE/KConfig>
 #include <KDE/KVBox>
 
-#include "exporterdialog.h"
-#include "basketview.h"
-#include "global.h"
-
-#include "templatefactory.h"
+#include "namedialog.h"
 
 
-ToTemplateDialog::ToTemplateDialog(BasketView *basket,  const QString &name)
+
+NameDialog::NameDialog(const QString &name, const QString &caption, const QString &labeltext  )
         : KDialog()
-        , m_basket(basket)
 {
 
-    setObjectName("toTemplate");
+    setObjectName(name);
     setModal(true);
-    setCaption(i18n("Create new template from basket"));
+    setCaption(caption);
     setButtons(Ok | Cancel);
     setDefaultButton(Ok);
-    showButtonSeparator(true);
+   showButtonSeparator(true);
+
     connect(this, SIGNAL(okClicked()), SLOT(slotOk()));
 
     QWidget *page = new QWidget(this);
     QVBoxLayout *topLayout = new QVBoxLayout(page);
 
+
+
     QHBoxLayout *hLayout = new QHBoxLayout ;
 
     QLabel *lName = new QLabel();
-    lName->setText("template name :");
+    lName->setText(labeltext);
 
-   lName->setMinimumWidth(lName->fontMetrics().maxWidth() * 3);
+    lName->setMinimumWidth(lName->fontMetrics().maxWidth() * 3);
 
+
+    //hLayout.addWidget();
 
     m_templateName= new QLineEdit( );
     m_templateName->setText(name);
 
+
     m_templateName->setMinimumWidth(m_templateName->fontMetrics().maxWidth()*7);
+
     m_templateName->setBaseSize(m_templateName->fontMetrics().maxWidth()*7, m_templateName->fontMetrics().height() +5);
+
 
     lName->setBuddy(m_templateName);
 
@@ -51,33 +54,39 @@ ToTemplateDialog::ToTemplateDialog(BasketView *basket,  const QString &name)
 
     topLayout->addLayout(hLayout);
 
+
+
+
+
     page->adjustSize();
+
     setMainWidget(page);
+
     this->adjustSize();
 
 }
 
 
-ToTemplateDialog::~ToTemplateDialog(){
+NameDialog::~NameDialog(){
 
 }
 
 
 
-void ToTemplateDialog::show(){
+void NameDialog::show(){
 
     KDialog::show();
 
 }
 
+QString NameDialog::getName()
+{
+    return m_templateName->text();
+}
 
 
+void NameDialog::slotOk(){
 
-void ToTemplateDialog::slotOk(){
 
-    TemplateFactory::packTemplate(m_templateName->text());
-
-//s     if (Global::mainWindow()) Global::mainWindow()->show();
-//
 
 }

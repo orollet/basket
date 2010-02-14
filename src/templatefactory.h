@@ -20,6 +20,11 @@ void newTemplate(const QString &icon,
 /** Internal tool methods to process the method above: */
 //QString newFolderName();
 QString packTemplate(const QString &templateName);
+
+void deleteTemplate(const QString &templateName);
+
+void copyTemplate(const QString &sourceTemplate,  const QString &destTemplate );
+
 }
 
 #endif // TEMPLATEFACTORY_H

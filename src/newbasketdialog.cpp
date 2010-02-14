@@ -38,6 +38,8 @@
 
 #include <QComboBox>
 
+
+
 #include "kicondialog.h"
 #include "newbasketdialog.h"
 #include "basketfactory.h"
@@ -48,6 +50,8 @@
 #include "tools.h"
 #include "global.h"
 #include "bnpview.h"
+
+#include "managetemplatedialog.h"
 
 #include "template.h"
 
@@ -426,6 +430,18 @@ void NewBasketDialog::slotOk()
 
 void NewBasketDialog::manageTemplates()
 {
-    KMessageBox::information(this, "Wait a minute! There is no template for now: they will come with time... :-D");
+    m_manageTemplateDlg = new ManageTemplateDialog();
+
+    connect(m_manageTemplateDlg, SIGNAL(listChanged()), this, SLOT(templateListChanged() ) );
+
+    m_manageTemplateDlg->show();
+
+    //ManageTemplateDialog::ManageTemplateDialog().exec();
+    //KMessageBox::information(this, "Wait a minute! There is no template for now: they will come with time... :-D");
+
+
 }
 
+void NewBasketDialog::templateListChanged(){
+    kDebug()<<"Templatelist a recharger\n";
+}

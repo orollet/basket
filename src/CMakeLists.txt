@@ -15,6 +15,7 @@ set(basketcommon_LIB_SRCS
     basketstatusbar.cpp
     bnpview.cpp
     colorpicker.cpp
+    copytemplatedialog.cpp
     crashhandler.cpp
     debugwindow.cpp
     decoratedbasket.cpp
@@ -30,6 +31,8 @@ set(basketcommon_LIB_SRCS
     kgpgme.cpp
     likeback.cpp
     linklabel.cpp
+    managetemplatedialog.cpp
+    namedialog.cpp
     newbasketdialog.cpp
     note.cpp
     notecontent.cpp
